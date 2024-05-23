@@ -18,7 +18,7 @@ def get_weather():
     # Check for empty strings or string with only spaces
     if not bool(city.strip()):
         # You could render "City Not Found" instead like we do below
-        city = "Kansas City"
+        city = "Munich, DE"
 
     weather_data = get_current_weather(city)
 
@@ -29,9 +29,15 @@ def get_weather():
     return render_template(
         "weather.html",
         title=weather_data["name"],
-        status=weather_data["weather"][0]["description"].capitalize(),
-        temp=f"{weather_data['main']['temp']}",
-        feels_like=f"{weather_data['main']['feels_like']}",
+        status=weather_data["weather"][0]["main"].capitalize(),
+        temp=f"{round(weather_data['main']['temp'])}",
+        feels_like=f"{round(weather_data['main']['feels_like'])}",
+        temp_min=f"{round(weather_data['main']['temp_min'])}",
+        temp_max=f"{round(weather_data['main']['temp_max'])}",
+        humidity=weather_data["main"]["humidity"],
+        wind_speed=weather_data["wind"]["speed"],
+        wind_deg=weather_data["wind"]["deg"],
+        sunrise=weather_data["sys"]["sunrise"],
     )
 
 
